@@ -1,5 +1,3 @@
-#include <pthread.h>
-
 #include "cc_approx.h"
 
 // init: record threshold, init locks, init values

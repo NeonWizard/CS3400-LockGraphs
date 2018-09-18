@@ -4,16 +4,25 @@
 
 #include "cc_approx.h"
 
-void *oneMillion(void *c) {
+typedef struct __myarg_t {
+	int thread;
+	counter_t c;
+} myarg_t;
+
+void *oneMillion(void *arg) {
+	myarg_t *m = (myarg_t *) arg;
+	int thread = m->thread;
+	counter_t *c = &m->c;
+
 	for (int i=0; i<1000000; i++) {
-		update(c, , 1);
+		update(c, thread, 1);
 	}
 
 	return NULL;
 }
 
 int main() {
-	printf("--- GRAPH1 PRECISE ---\n\n");
+	printf("--- GRAPH1 APPROX ---\n\n");
 
 	// time tracking stuff
 	struct timeval tv;
@@ -34,7 +43,10 @@ int main() {
 		// Allocate #[threads] threads
 		pthread_t *thread = malloc(sizeof(pthread_t)*threads);
 		for (int i=0; i<threads; i++) {
-			if (pthread_create(&thread[i], NULL, oneMillion, &shared_counter) != 0) {
+			myarg_t args;
+			args.thread = i; args.c = shared_counter;
+
+			if (pthread_create(&thread[i], NULL, oneMillion, &args) != 0) {
 				printf("ERROR!!! :^)");
 				exit(1);
 			}

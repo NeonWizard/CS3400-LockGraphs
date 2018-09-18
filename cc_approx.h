@@ -1,5 +1,8 @@
 #ifndef CC_APPROX_H
 #define CC_APPROX_H
+#define NUMCPUS 4
+
+#include <pthread.h>
 
 typedef struct __counter_t {
 	int global; // global count
