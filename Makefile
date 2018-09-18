@@ -7,9 +7,9 @@
 CXXFLAGS := -Wall -Wno-missing-braces -Werror -g
 CXX := gcc
 
-graph1: graph1_precise graph1_approximate
+graph1: graph1_precise graph1_approx
 	./graph1_precise
-	./graph1_approximate
+	./graph1_approx
 
 graph1_precise: graph1_precise.o cc.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
@@ -21,4 +21,4 @@ cc.o: cc.c cc.h
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean:
-	rm -f *.o graph1_precise graph1_approximate valgrind.*
+	rm -f *.o graph1_precise graph1_approx valgrind.*
