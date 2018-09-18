@@ -22,7 +22,7 @@ void *oneMillion(void *arg) {
 }
 
 int main() {
-	printf("--- GRAPH1 APPROX ---\n\n");
+	printf("\n--- GRAPH1 APPROX ---\n\n");
 
 	// time tracking stuff
 	struct timeval tv;
@@ -64,7 +64,7 @@ int main() {
 		results[threads-1] = end-start;
 	}
 
-	printf("Results: %f, %f, %f, %f", results[0]/1000000.0, results[1]/1000000.0, results[2]/1000000.0, results[3]/1000000.0);
+	printf("Results: %f, %f, %f, %f\n", results[0]/1000000.0, results[1]/1000000.0, results[2]/1000000.0, results[3]/1000000.0);
 
 	return 0;
 }
