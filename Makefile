@@ -4,7 +4,7 @@
 # $^ : all dependencies
 # $< : first dependency
 
-CXXFLAGS := -Wall -Wno-missing-braces -Werror -g
+CXXFLAGS := -Wall -Wno-missing-braces -Werror -g -pthread
 CXX := gcc
 
 all: graph1_precise graph1_approx graph2
