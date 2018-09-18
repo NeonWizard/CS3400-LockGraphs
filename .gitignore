@@ -2,5 +2,6 @@
 
 graph1_precise
 graph1_approx
-
 graph2
+graph3_list
+graph3_hash
