@@ -8,6 +8,7 @@ CXXFLAGS := -Wall -Wno-missing-braces -Werror -g -pthread
 CXX := gcc
 
 all: graph1_precise graph1_approx graph2 graph3_list graph3_hash
+run_all: run_graph1 run_graph2 run_graph3
 
 # --- EXECUTION ---
 run_graph1: graph1_precise graph1_approx

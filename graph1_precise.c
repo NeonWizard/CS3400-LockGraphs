@@ -52,7 +52,7 @@ int main() {
 		results[threads-1] = end-start;
 	}
 
-	printf("Results: %f, %f, %f, %f\n", results[0]/1000000.0, results[1]/1000000.0, results[2]/1000000.0, results[3]/1000000.0);
+	printf("\nResults: %f, %f, %f, %f\n", results[0]/1000000.0, results[1]/1000000.0, results[2]/1000000.0, results[3]/1000000.0);
 
 	return 0;
 }
