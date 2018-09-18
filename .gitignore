@@ -1,0 +1,5 @@
+*.o
+
+graph1_precise
+graph1_approx
+
