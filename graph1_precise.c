@@ -22,7 +22,7 @@ int main() {
 	// timing results
 	int results[4];
 
-	for (int threads=1; threads<5; threads++) {
+	for (int num_threads=1; num_threads<5; num_threads++) {
 		gettimeofday(&tv, NULL);
 		start = tv.tv_usec + tv.tv_sec*1000000;
 
@@ -31,25 +31,25 @@ int main() {
 		counter_t shared_counter;
 		init(&shared_counter);
 
-		// Allocate #[threads] threads
-		pthread_t *thread = malloc(sizeof(pthread_t)*threads);
-		for (int i=0; i<threads; i++) {
-			if (pthread_create(&thread[i], NULL, oneMillion, &shared_counter) != 0) {
+		// Allocate #[num_threads] threads
+		pthread_t *threads = malloc(sizeof(pthread_t)*num_threads);
+		for (int i=0; i<num_threads; i++) {
+			if (pthread_create(&threads[i], NULL, oneMillion, &shared_counter) != 0) {
 				printf("ERROR!!! :^)");
 				exit(1);
 			}
 		}
 		// Join them
-		for (int i=0; i<threads; i++) {
-			pthread_join(thread[i], NULL);
+		for (int i=0; i<num_threads; i++) {
+			pthread_join(threads[i], NULL);
 		}
 
 		gettimeofday(&tv, NULL);
 		end = tv.tv_usec + tv.tv_sec*1000000;
 
-		printf("Test with %i thread(s) complete.\n", threads);
+		printf("Test with %i thread(s) complete.\n", num_threads);
 
-		results[threads-1] = end-start;
+		results[num_threads-1] = end-start;
 	}
 
 	printf("\nResults: %f, %f, %f, %f\n", results[0]/1000000.0, results[1]/1000000.0, results[2]/1000000.0, results[3]/1000000.0);

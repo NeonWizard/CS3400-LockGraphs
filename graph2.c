@@ -40,20 +40,21 @@ int main() {
 		counter_t shared_counter;
 		init(&shared_counter, (1 << af)); // (1 << af) == (2^af)
 
-		// Allocate #[threads] threads
-		pthread_t thread[4];
-		for (int i=0; i<4; i++) {
-			myarg_t args;
-			args.thread = i; args.c = shared_counter;
+		// Allocate 4 threads
+		pthread_t threads[4];
 
-			if (pthread_create(&thread[i], NULL, oneMillion, &args) != 0) {
+		for (int i=0; i<4; i++) {
+			myarg_t *args = (myarg_t*)malloc(sizeof(myarg_t));
+			args->thread = i; args->c = shared_counter;
+
+			if (pthread_create(&threads[i], NULL, oneMillion, args) != 0) {
 				printf("ERROR!!! :^)");
 				exit(1);
 			}
 		}
 		// Join them
 		for (int i=0; i<4; i++) {
-			pthread_join(thread[i], NULL);
+			pthread_join(threads[i], NULL);
 		}
 
 		gettimeofday(&tv, NULL);

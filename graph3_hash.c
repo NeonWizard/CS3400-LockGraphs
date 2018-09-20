@@ -31,7 +31,7 @@ int main() {
 	// timing results
 	int results[5];
 
-	for (int i=0; i<5; i++) {
+	for (int x=0; x<5; x++) {
 		gettimeofday(&tv, NULL);
 		start = tv.tv_usec + tv.tv_sec*1000000;
 
@@ -40,28 +40,29 @@ int main() {
 		hash_t shared_hash;
 		Hash_Init(&shared_hash);
 
-		// Allocate #[threads] threads
-		pthread_t thread[4];
-		for (int i=0; i<4; i++) {
-			myarg_t args;
-			args.inserts = (i+1)*1000; args.H = shared_hash;
+		// Allocate 4 threads
+		pthread_t threads[4];
 
-			if (pthread_create(&thread[i], NULL, varInsert, &args) != 0) {
+		for (int i=0; i<4; i++) {
+			myarg_t *args = (myarg_t*)malloc(sizeof(myarg_t));
+			args->inserts = (x+1)*1000; args->H = shared_hash;
+
+			if (pthread_create(&threads[i], NULL, varInsert, args) != 0) {
 				printf("ERROR!!! :^)");
 				exit(1);
 			}
 		}
 		// Join them
 		for (int i=0; i<4; i++) {
-			pthread_join(thread[i], NULL);
+			pthread_join(threads[i], NULL);
 		}
 
 		gettimeofday(&tv, NULL);
 		end = tv.tv_usec + tv.tv_sec*1000000;
 
-		printf("Test with [%ik] inserts complete.\n", (i+1));
+		printf("Test with [%ik] inserts complete.\n", (x+1));
 
-		results[i] = end-start;
+		results[x] = end-start;
 	}
 
 	printf("\nResults: ");
