@@ -6,13 +6,13 @@
 
 typedef struct __myarg_t {
 	int thread;
-	counter_t c;
+	counter_t *c;
 } myarg_t;
 
 void *oneMillion(void *arg) {
 	myarg_t *m = (myarg_t *) arg;
 	int thread = m->thread;
-	counter_t *c = &m->c;
+	counter_t *c = m->c;
 
 	for (int i=0; i<1000000; i++) {
 		update(c, thread, 1);
@@ -45,7 +45,7 @@ int main() {
 
 		for (int i=0; i<num_threads; i++) {
 			myarg_t *args = (myarg_t*)malloc(sizeof(myarg_t));
-			args->thread = i; args->c = shared_counter;
+			args->thread = i; args->c = &shared_counter;
 
 			if (pthread_create(&threads[i], NULL, oneMillion, args) != 0) {
 				printf("ERROR!!! :^)");
