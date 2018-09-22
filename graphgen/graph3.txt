@@ -1,0 +1,25 @@
+set terminal png
+
+set xlabel 'Inserts (Thousands)'
+set xtic (10, 20, 30, 40, 50)
+
+set ylabel 'Seconds'
+set yrange [0:1]
+
+set key reverse Left outside
+set style data linespoints
+
+plot "-" u 1:2 t "Simple Concurrent List" lw 2 ps 2, "" u 1:3 t "Concurrent Hash Table" lw 2 ps 2
+
+10 0.196164 0.002021
+20 0.384666 0.003901
+30 0.575902 0.007221
+40 0.772291 0.013334
+50 0.975571 0.016335
+e
+10 0.196164 0.002021
+20 0.384666 0.003901
+30 0.575902 0.007221
+40 0.772291 0.013334
+50 0.975571 0.016335
+e

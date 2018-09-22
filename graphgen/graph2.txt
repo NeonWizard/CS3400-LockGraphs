@@ -1,0 +1,25 @@
+set terminal png
+
+set xlabel 'Approximation Factor'
+set logscale x 2
+
+set ylabel 'Seconds'
+set yrange [0:20]
+
+set key off
+set style data linespoints
+
+plot "-" lw 2 ps 2 pt 2
+
+1 19.194314
+2 9.812604
+4 4.815468
+8 2.451994
+16 1.255991
+32 0.596776
+64 0.325880
+128 0.172196
+256 0.164358
+512 0.164066
+1024 0.166967
+e
